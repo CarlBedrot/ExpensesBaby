@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, List, ListItem, ListItemText, Box, Card, CardContent, CardActions, Typography } from '@mui/material';
 
 
+/**
+ * Represents a component for managing budgets.
+ * @param {Object} props - The component props.
+ * @param {Array} props.budgets - The list of budgets.
+ * @param {Function} props.setBudgets - The function to update the list of budgets.
+ * @returns {JSX.Element} The BudgetComponent JSX element.
+ */
 const BudgetComponent = ({ budgets, setBudgets }) => {
     const [category, setCategory] = useState(localStorage.getItem('category') || '');
     const [amount, setAmount] = useState(localStorage.getItem('amount') || '');
