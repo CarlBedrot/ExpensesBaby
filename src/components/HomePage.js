@@ -4,6 +4,7 @@ import TransactionHistory from '../images/TransactionHistory.png';
 import Expenses from '../images/Expenses.png';
 import Budget from '../images/Budget.png';
 import BudgetTracker from '../images/BudgetTracker.png';
+import Goals from '../images/Goals.png';
 
 const HomePage = () => {
     return (
@@ -72,6 +73,23 @@ const HomePage = () => {
                         />
                         <Typography variant="body1">
                             Keep an eye on your spending habits with our fancy budget tracker!
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <Card raised>
+                    <CardContent>
+                        <Typography variant="h5" gutterBottom>Goals</Typography>
+                        <CardMedia
+                            component="img"
+                            image={Goals}
+                            alt="Goals Tracker Screenshot"
+                            style={{ height: '200px', objectFit: 'contain' }}
+                            sx={{ transition: 'transform 0.15s ease-in-out', '&:hover': { transform: 'scale(1.25)' } }}
+                        />
+                        <Typography variant="body1">
+                            Saving for a new car? Set a goal and track your progress!
                         </Typography>
                     </CardContent>
                 </Card>

@@ -23,6 +23,7 @@ import Alert from '@mui/material/Alert';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {motion } from 'framer-motion';
+import Grid from '@mui/material/Grid';
 
 
 const GoalsContext = createContext();
@@ -105,67 +106,78 @@ function GoalInputForm() {
     return (
         <Card>
             <CardContent>
-                <TextField label="Goal" value={newGoal} onChange={e => setNewGoal(e.target.value)} />
-                <TextField label="Target Amount" value={newTargetAmount} onChange={e => setNewTargetAmount(e.target.value)} type="number" />
-                <TextField 
-                    label="Saved Amount" 
-                    value={newSavedAmount} 
-                    onChange={e => setNewSavedAmount(e.target.value)} 
-                    type="number"
-                />
-                <motion.div 
-                    whileHover={{ scale: 1.1 }} 
-                    whileTap={{ scale: 0.9 }}
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                >
-                    <Button variant="contained" color="primary" onClick={handleAddGoal}>
-                        {editMode ? 'Update' : 'Add'} Goal
-                    </Button>
-                </motion.div>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={4}>
+                        <TextField label="Goal" value={newGoal} onChange={e => setNewGoal(e.target.value)} fullWidth />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <TextField label="Target Amount" value={newTargetAmount} onChange={e => setNewTargetAmount(e.target.value)} type="number" fullWidth />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <TextField 
+                            label="Saved Amount" 
+                            value={newSavedAmount} 
+                            onChange={e => setNewSavedAmount(e.target.value)} 
+                            type="number"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <motion.div 
+                            whileHover={{ scale: 1.1 }} 
+                            whileTap={{ scale: 0.9 }}
+                            style={{ display: 'flex', justifyContent: 'center' }}
+                        >
+                            <Button variant="contained" color="primary" onClick={handleAddGoal}>
+                                {editMode ? 'Update' : 'Add'} Goal
+                            </Button>
+                        </motion.div>
+                    </Grid>
+                </Grid>
                 <List>
-                {goals.map((goal, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 100 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <ListItem>
-                            <ListItemText primary={goal.title} secondary={`Target: $${goal.targetAmount}`} />
-                            <div style={{ width: '150px', height: '150px', marginRight: '15px' }}>
-                                <CircularProgressbar
-                                    value={goal.savedAmount}
-                                    maxValue={goal.targetAmount}
-                                    text={`${Math.round((goal.savedAmount / goal.targetAmount) * 100)}%`}
-                                    styles={buildStyles({
-                                        pathColor: `rgba(62, 152, 199, ${(goal.savedAmount / goal.targetAmount)})`,
-                                        textColor: '#f88',
-                                        trailColor: '#d6d6d6',
-                                        backgroundColor: '#3e98c7',
-                                        strokeWidth: 2,
-                                    })}
-                                />
-                            </div>
-                            <Typography variant="body2" color="textSecondary" style={{ marginRight: '15px', padding: '30px' }}>
-                                {`Saved: $${goal.savedAmount}`}
-                            </Typography>
-                            <ListItemSecondaryAction>
-                                <Tooltip title="Delete">
-                                    <IconButton edge="end" aria-label="delete" onClick={() => handleDialogOpen(index)} style={{ marginRight: '10px' }}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Edit">
-                                    <IconButton edge="end" aria-label="edit" onClick={() => handleEditGoal(index)}>
-                                        <EditIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                    </motion.div>
-                ))}
-            </List>
+                    {goals.map((goal, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 100 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <ListItem>
+                                <ListItemText primary={goal.title} secondary={`Target: $${goal.targetAmount}`} />
+                                <div style={{ width: '150px', height: '150px', marginRight: '15px' }}>
+                                    <CircularProgressbar
+                                        value={goal.savedAmount}
+                                        maxValue={goal.targetAmount}
+                                        text={`${Math.round((goal.savedAmount / goal.targetAmount) * 100)}%`}
+                                        styles={buildStyles({
+                                            pathColor: `rgba(62, 152, 199, ${(goal.savedAmount / goal.targetAmount)})`,
+                                            textColor: '#f88',
+                                            trailColor: '#d6d6d6',
+                                            backgroundColor: '#3e98c7',
+                                            strokeWidth: 2,
+                                        })}
+                                    />
+                                </div>
+                                <Typography variant="body2" color="textSecondary" style={{ marginRight: '15px', padding: '30px' }}>
+                                    {`Saved: $${goal.savedAmount}`}
+                                </Typography>
+                                <ListItemSecondaryAction>
+                                    <Tooltip title="Delete">
+                                        <IconButton edge="end" aria-label="delete" onClick={() => handleDialogOpen(index)} style={{ marginRight: '10px' }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Edit">
+                                        <IconButton edge="end" aria-label="edit" onClick={() => handleEditGoal(index)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        </motion.div>
+                    ))}
+                </List>
                 <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                     <Alert elevation={6} variant="filled" onClose={handleCloseSnackbar} severity="success">
                         Goal {editMode ? 'updated' : 'added'} successfully!
@@ -184,7 +196,7 @@ function GoalInputForm() {
                 </Dialog>
             </CardContent>
         </Card>
-    );        
+    );
 }
 
 function GoalsComponent() {
