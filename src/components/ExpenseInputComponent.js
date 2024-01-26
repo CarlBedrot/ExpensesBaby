@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, List, ListItem, ListItemText, Box, MenuItem } from '@mui/material';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { FaTrash as DeleteIcon, FaEdit as EditIcon } from 'react-icons/fa';
 
 const ExpenseInputComponent = ({ budgets, expenses, setExpenses}) => {
     const [expenseCategory, setExpenseCategory] = useState('');
@@ -103,12 +102,12 @@ const ExpenseInputComponent = ({ budgets, expenses, setExpenses}) => {
           <ListItem key={index}>
             <ListItemText primary={expense.category} secondary={`${expense.amount} kr - ${expense.date} - ${expense.description}`}  />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteExpense(index)}>
-                <DeleteIcon />
-              </IconButton>
-              <IconButton edge="end" aria-label="edit" onClick={() => handleEditExpense(index)}>
-                <EditIcon />
-              </IconButton>
+            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteExpense(index)}>
+    <DeleteIcon />
+</IconButton>
+<IconButton edge="end" aria-label="edit" onClick={() => handleEditExpense(index)}>
+    <EditIcon />
+</IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         ))}

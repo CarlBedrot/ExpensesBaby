@@ -17,8 +17,8 @@ import {
     DialogTitle,
     DialogActions
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { FaTrash as DeleteIcon, FaEdit as EditIcon } from 'react-icons/fa';
+
 import Alert from '@mui/material/Alert';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -164,14 +164,12 @@ function GoalInputForm() {
                                 </Typography>
                                 <ListItemSecondaryAction>
                                     <Tooltip title="Delete">
-                                        <IconButton edge="end" aria-label="delete" onClick={() => handleDialogOpen(index)} style={{ marginRight: '10px' }}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title="Edit">
-                                        <IconButton edge="end" aria-label="edit" onClick={() => handleEditGoal(index)}>
-                                            <EditIcon />
-                                        </IconButton>
+                                    <IconButton edge="end" aria-label="delete" onClick={() => handleDialogOpen(index)} style={{ marginRight: '10px' }}>
+    <DeleteIcon />
+</IconButton>
+<IconButton edge="end" aria-label="edit" onClick={() => handleEditGoal(index)}>
+    <EditIcon />
+</IconButton>
                                     </Tooltip>
                                 </ListItemSecondaryAction>
                             </ListItem>

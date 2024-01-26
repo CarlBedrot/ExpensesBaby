@@ -12,8 +12,8 @@ import StatisticsComponent from './components/StatisticsComponent';
 function App() {
   const [budgets, setBudgets] = useState(JSON.parse(localStorage.getItem('budgets')) || []);
   const [expenses, setExpenses] = useState(JSON.parse(localStorage.getItem('expenses')) || []);
-  const [goals , setGoals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
-  const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'SEK');
+  const [goals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
+  const [currency] = useState(localStorage.getItem('currency') || 'SEK');
   
   useEffect(() => {
     localStorage.setItem('budgets', JSON.stringify(budgets));
