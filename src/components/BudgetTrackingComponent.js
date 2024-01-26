@@ -45,14 +45,14 @@ const BudgetTrackingComponent = ({ expenses, budgets }) => {
         <Grid container spacing={2}> {/* Grid container with spacing */}
             {budgetStatus.map((budget, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}> {/* Grid item for each card, adjust sizes as needed */}
-                    <Card variant="outlined">
+                    <Card variant="outlined" style={{ backgroundColor: '#f5f5f5' }}>
                         <CardContent>
                             <Box width="100%" mb={2}>
                                 <Typography variant="h6" component="h3">
                                     {budget.category}
                                 </Typography>
                                 <Typography color="textSecondary">
-                                    Spent: ${budget.totalExpenses} / Budget: ${budget.totalBudget}
+                                    Spent: {budget.totalExpenses} kr / Budget: {budget.totalBudget} kr
                                 </Typography>
                                 <LinearProgress
                                     variant="determinate"
@@ -62,7 +62,7 @@ const BudgetTrackingComponent = ({ expenses, budgets }) => {
                                 />
                                 <Box display="flex" justifyContent="space-between" mt={1}>
                                     <Typography variant="body2" color="textSecondary">
-                                        Remaining: ${budget.remaining}
+                                        Remaining: {budget.remaining} kr
                                     </Typography>
                                     <Typography variant="body2" color={getProgressColor(budget.progress)}>
                                         {budget.progress.toFixed(2)}%

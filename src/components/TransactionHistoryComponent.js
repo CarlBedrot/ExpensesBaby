@@ -35,14 +35,14 @@ const TransactionHistoryComponent = ({ expenses }) => {
         <Box key={index} mb={2}>
           <Typography variant="h6" gutterBottom>
             <span style={{ backgroundColor: 'yellow' }}>
-              {category} - Total: ${groupedExpenses[category].reduce((total, expense) => total + Number(expense.amount), 0).toFixed(2)}
+              {category} - Total: {groupedExpenses[category].reduce((total, expense) => total + Number(expense.amount), 0).toFixed(2) + ' kr'}
             </span>
           </Typography>
           <List>
             {groupedExpenses[category].map((expense, expenseIndex) => (
               <ListItem key={expenseIndex}>
                 <ListItemText
-                  primary={`$${expense.amount}`}
+                  primary={`${expense.amount} kr`}
                   secondary={`${expense.date} - ${expense.description}`}
                 />
               </ListItem>

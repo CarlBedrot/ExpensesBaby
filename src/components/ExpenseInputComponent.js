@@ -101,7 +101,7 @@ const ExpenseInputComponent = ({ budgets, expenses, setExpenses}) => {
             <List>
         {expenses.map((expense, index) => (
           <ListItem key={index}>
-            <ListItemText primary={expense.category} secondary={`$${expense.amount} - ${expense.date} - ${expense.description}`} />
+            <ListItemText primary={expense.category} secondary={`${expense.amount} kr - ${expense.date} - ${expense.description}`}  />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteExpense(index)}>
                 <DeleteIcon />

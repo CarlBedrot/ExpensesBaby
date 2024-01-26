@@ -62,7 +62,7 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
       
 
     return (
-        <div>
+        <div >
             <h2>Budget Creation</h2>
             <form onSubmit={(e) => {
                 e.preventDefault();
@@ -75,7 +75,7 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
                             value={category}
                             onChange={(e) => {
                                 const value = e.target.value;
-                                if (/^[a-zA-Zåäö() ]*$/.test(value)) {
+                                if (/^[a-zA-ZåäöÅÄÖ() ]*$/.test(value)) {
                                     setCategory(value);
                                     setCategoryError('');
                                 } else {
@@ -101,11 +101,10 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
                         {selectedBudgetIndex !== null ? 'Update Budget' : 'Add category to Budget'}
                     </Button>
                 </Box>
-            </form>
-            <List>
+            </form >
+            <List >
                 {budgets.map((budget, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={budget.category} secondary={`$${budget.amount}`} />
+                    <ListItem key={index} style={{ backgroundColor: '#f5f5f5', margin: '10px 0' }}>                        <ListItemText primary={budget.category} secondary={`${budget.amount} SEK`} />
                         <Box display="flex" gap={2}>
                             <Button variant="contained" color="primary" onClick={() => handleEditBudget(index)}>
                                 Edit
@@ -119,7 +118,7 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
             </List>
             <hr />
             <Box mt={2}>
-                <h3>Total Budget: ${budgets.reduce((total, budget) => total + Number(budget.amount), 0)}</h3>
+                <h3>Total Budget: {budgets.reduce((total, budget) => total + Number(budget.amount), 0)} SEK</h3>
             </Box>
         </div>
     );

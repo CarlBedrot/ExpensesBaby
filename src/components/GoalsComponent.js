@@ -104,8 +104,8 @@ function GoalInputForm() {
     };
 
     return (
-        <Card>
-            <CardContent>
+        <Card >  
+                  <CardContent>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={4}>
                         <TextField label="Goal" value={newGoal} onChange={e => setNewGoal(e.target.value)} fullWidth />
@@ -143,7 +143,7 @@ function GoalInputForm() {
                             exit={{ opacity: 0, x: 100 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <ListItem>
+                            <ListItem key={index} style={{ backgroundColor: '#f5f5f5', margin: '10px 0' }}>
                                 <ListItemText primary={goal.title} secondary={`Target: $${goal.targetAmount}`} />
                                 <div style={{ width: '150px', height: '150px', marginRight: '15px' }}>
                                     <CircularProgressbar

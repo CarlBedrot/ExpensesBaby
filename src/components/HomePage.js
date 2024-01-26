@@ -38,8 +38,7 @@ const HomePage = () => {
                             sx={{ transition: 'transform 0.15s ease-in-out', '&:hover': { transform: 'scale(1.45)' } }}
                         />
                         <Typography variant="body1">
-                            Want to remember that time you bought a yacht? Check your transaction history!
-                        </Typography>
+                        Ever feel like a financial archaeologist? Dig through the ruins of your transaction history and piece together the epic saga of your cash crusade!                        </Typography>
                     </CardContent>
                 </Card>
             </Grid>
@@ -55,8 +54,7 @@ const HomePage = () => {
                             sx={{ transition: 'transform 0.15s ease-in-out', '&:hover': { transform: 'scale(1.45)' } }}
                         />
                         <Typography variant="body1">
-                            Money doesn't grow on trees. Plan your budget and save for that dream vacation!
-                        </Typography>
+                        Assembling your budget like a fragile house of cards? Place each dollar with care, or brace for the gust of unexpected expenses to bring it all down!                        </Typography>
                     </CardContent>
                 </Card>
             </Grid>
@@ -72,8 +70,7 @@ const HomePage = () => {
                             sx={{ transition: 'transform 0.15s ease-in-out', '&:hover': { transform: 'scale(1.45)' } }}
                         />
                         <Typography variant="body1">
-                            Keep an eye on your spending habits with our fancy budget tracker!
-                        </Typography>
+                        Think you're a budgeting wizard until reality casts a 'Broke Again' spell? Track your fiscal fantasies vs. harsh truths here and brace for impact!                        </Typography>
                     </CardContent>
                 </Card>
             </Grid>
@@ -89,7 +86,7 @@ const HomePage = () => {
                             sx={{ transition: 'transform 0.15s ease-in-out', '&:hover': { transform: 'scale(1.25)' } }}
                         />
                         <Typography variant="body1">
-                            Saving for a new car? Set a goal and track your progress!
+                            Saving to hedge against the crippling depression of poverty? Set a goal and track your progress!
                         </Typography>
                     </CardContent>
                 </Card>

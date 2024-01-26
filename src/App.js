@@ -26,12 +26,12 @@ function App() {
         <AppBar position="static">
         <Typography variant="h4" style={{marginLeft: '25px'}}>Expense Tracker</Typography>
           <Toolbar>
-          <Button component={Link} to="/" color="inherit">Home</Button>
-            <Button component={Link} to="/budget" color="inherit">Budget</Button>
-            <Button component={Link} to="/expenses" color="inherit">Expenses</Button>
-            <Button component={Link} to="/tracking" color="inherit">Tracking</Button>
-            <Button component={Link} to="/history" color="inherit">History</Button>
-            <Button component={Link} to="/goals" color="inherit">Goals</Button>
+          <Button component={Link} to="/" color="inherit"style={{fontWeight: 'bolder'}}>Home</Button>
+            <Button component={Link} to="/budget" color="inherit" style={{fontWeight: 'bolder'}}>Budget</Button>
+            <Button component={Link} to="/expenses" color="inherit"style={{fontWeight: 'bolder'}}>Expenses</Button>
+            <Button component={Link} to="/tracking" color="inherit"style={{fontWeight: 'bolder'}}>Tracking</Button>
+            <Button component={Link} to="/history" color="inherit"style={{fontWeight: 'bolder'}}>History</Button>
+            <Button component={Link} to="/goals" color="inherit"style={{fontWeight: 'bolder'}}>Goals</Button>
           </Toolbar>
         </AppBar>
         <Routes>
