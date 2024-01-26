@@ -95,7 +95,7 @@ const HomePage = () => {
             <Grid item xs={12} sm={6}>
                 <Card raised>
                     <CardContent>
-                        <Typography variant="h5" gutterBottom>Goals</Typography>
+                        <Typography variant="h5" gutterBottom>Statistics</Typography>
                         <CardMedia
                             component="img"
                             image={Statistics}
