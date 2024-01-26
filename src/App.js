@@ -7,6 +7,7 @@ import BudgetTrackingComponent from './components/BudgetTrackingComponent';
 import TransactionHistoryComponent from './components/TransactionHistoryComponent';
 import HomePage from './components/HomePage';
 import GoalsComponent from './components/GoalsComponent';
+import StatisticsComponent from './components/StatisticsComponent';
 
 function App() {
   const [budgets, setBudgets] = useState(JSON.parse(localStorage.getItem('budgets')) || []);
@@ -34,6 +35,7 @@ function App() {
             <Button component={Link} to="/tracking" color="inherit"style={{fontWeight: 'bolder'}}>Tracking</Button>
             <Button component={Link} to="/history" color="inherit"style={{fontWeight: 'bolder'}}>History</Button>
             <Button component={Link} to="/goals" color="inherit"style={{fontWeight: 'bolder'}}>Goals</Button>
+            <Button component={Link} to="/statistics" color="inherit"style={{fontWeight: 'bolder'}}>Statistics</Button>
           </Toolbar>
         </AppBar>
         <Routes>
@@ -48,6 +50,7 @@ function App() {
                     />          
                     <Route path="/history" element={<TransactionHistoryComponent expenses={expenses} />} />
                     <Route path="/goals" element={<GoalsComponent />} />
+                    <Route path="/statistics" element={<StatisticsComponent expenses={expenses} />} />
         </Routes>
       </Container>
     </Router>

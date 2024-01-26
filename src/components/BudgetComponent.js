@@ -79,15 +79,20 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Box display="flex" gap={2}>
                     <Select
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                >
-                    {currencies.map((curr) => (
-                        <MenuItem key={curr} value={curr}>
-                            {curr}
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                        style={{ width: '100px' }}
+                        displayEmpty // This allows the placeholder item to be displayed when no value is selected
+                    >
+                        <MenuItem value="Currency" disabled>
+                            Select Currency
                         </MenuItem>
-                    ))}
-                </Select>
+                        {currencies.map((curr) => (
+                            <MenuItem key={curr} value={curr}>
+                                {curr}
+                            </MenuItem>
+                        ))}
+                    </Select>
                         <TextField
                             label="Category"
                             value={category}
