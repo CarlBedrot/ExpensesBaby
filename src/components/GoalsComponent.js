@@ -1,121 +1,198 @@
-import React, { useState, useEffect } from 'react';
-import { Button, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import {
+    List,
+    ListItem,
+    ListItemText,
+    ListItemSecondaryAction,
+    IconButton,
+    TextField,
+    Button,
+    Card,
+    CardContent,
+    LinearProgress,
+    Typography,
+    Tooltip,
+    Snackbar,
+    Dialog,
+    DialogTitle,
+    DialogActions
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Alert from '@mui/material/Alert';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import {motion } from 'framer-motion';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-    },
-    button: {
-        margin: theme.spacing(1),
-    },
-}));
 
-const GoalsComponent = () => {
-    const classes = useStyles();
-    const [goals, setGoals] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [tempGoal, setTempGoal] = useState({title: '', description: ''});
-    const [editIndex, setEditIndex] = useState(null);
+const GoalsContext = createContext();
 
-    useEffect(() => {
-        const savedGoals = localStorage.getItem('goals');
-        if (savedGoals) {
-            setGoals(JSON.parse(savedGoals));
-        }
-    }, []);
+function GoalsProvider({ children }) {
+    const [goals, setGoals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
 
     useEffect(() => {
         localStorage.setItem('goals', JSON.stringify(goals));
     }, [goals]);
 
-    const addGoal = () => {
-        setGoals([...goals, tempGoal]);
-        setTempGoal({title: '', description: ''});
-        setOpen(false);
+    return (
+        <GoalsContext.Provider value={{ goals, setGoals }}>
+            {children}
+        </GoalsContext.Provider>
+    );
+}
+
+function GoalInputForm() {
+    const { goals, setGoals } = useContext(GoalsContext);
+    const [newGoal, setNewGoal] = useState('');
+    const [newTargetAmount, setNewTargetAmount] = useState('');
+    const [newSavedAmount, setNewSavedAmount] = useState('');
+    const [editMode, setEditMode] = useState(false);
+    const [editIndex, setEditIndex] = useState(null);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [deleteIndex, setDeleteIndex] = useState(null);
+
+    const handleAddGoal = () => {
+        if (typeof newGoal === 'string' && newGoal.trim() === '') return;
+        const goalData = {
+            title: newGoal,
+            targetAmount: parseFloat(newTargetAmount) || 0,
+            savedAmount: parseFloat(newSavedAmount) || 0
+        };
+        if (editMode) {
+            const updatedGoals = [...goals];
+            updatedGoals[editIndex] = goalData;
+            setGoals(updatedGoals);
+            setEditMode(false);
+            setEditIndex(null);
+        } else {
+            setGoals([...goals, goalData]);
+        }
+        setNewGoal('');
+        setNewTargetAmount('');
+        setNewSavedAmount('');
     };
 
-    const startEditGoal = (index) => {
-        setTempGoal(goals[index]);
+    const handleDeleteGoal = () => {
+        const updatedGoals = goals.filter((goal, i) => i !== deleteIndex);
+        setGoals(updatedGoals);
+        setDialogOpen(false);
+        setSnackbarOpen(true);
+    };
+
+    const handleEditGoal = (index) => {
+        setNewGoal(goals[index].title); // Ensure this is a string
+        setNewTargetAmount(String(goals[index].targetAmount)); // Convert to string to use in TextField
+        setNewSavedAmount(String(goals[index].savedAmount)); // Convert to string to use in TextField
+        setEditMode(true);
         setEditIndex(index);
-        setOpen(true);
+    };
+    
+
+    const handleDialogOpen = (index) => {
+        setDeleteIndex(index);
+        setDialogOpen(true);
     };
 
-    const editGoal = () => {
-        setGoals(goals.map((goal, i) => (i === editIndex ? tempGoal : goal)));
-        setTempGoal({title: '', description: ''});
-        setEditIndex(null);
-        setOpen(false);
+    const handleDialogClose = () => {
+        setDialogOpen(false);
     };
 
-    const deleteGoal = (index) => {
-        setGoals(goals.filter((goal, i) => i !== index));
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
     };
 
     return (
-        <div className={classes.root}>
-            <h2>Goals</h2>
-            <List>
+        <Card>
+            <CardContent>
+                <TextField label="Goal" value={newGoal} onChange={e => setNewGoal(e.target.value)} />
+                <TextField label="Target Amount" value={newTargetAmount} onChange={e => setNewTargetAmount(e.target.value)} type="number" />
+                <TextField 
+                    label="Saved Amount" 
+                    value={newSavedAmount} 
+                    onChange={e => setNewSavedAmount(e.target.value)} 
+                    type="number"
+                />
+                <motion.div 
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }}
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                    <Button variant="contained" color="primary" onClick={handleAddGoal}>
+                        {editMode ? 'Update' : 'Add'} Goal
+                    </Button>
+                </motion.div>
+                <List>
                 {goals.map((goal, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={goal.title} secondary={goal.description} />
-                        <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onClick={() => deleteGoal(index)}>
-                                <DeleteIcon />
-                            </IconButton>
-                            <IconButton edge="end" aria-label="edit" onClick={() => startEditGoal(index)}>
-                                <EditIcon />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 100 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <ListItem>
+                            <ListItemText primary={goal.title} secondary={`Target: $${goal.targetAmount}`} />
+                            <div style={{ width: '150px', height: '150px', marginRight: '15px' }}>
+                                <CircularProgressbar
+                                    value={goal.savedAmount}
+                                    maxValue={goal.targetAmount}
+                                    text={`${Math.round((goal.savedAmount / goal.targetAmount) * 100)}%`}
+                                    styles={buildStyles({
+                                        pathColor: `rgba(62, 152, 199, ${(goal.savedAmount / goal.targetAmount)})`,
+                                        textColor: '#f88',
+                                        trailColor: '#d6d6d6',
+                                        backgroundColor: '#3e98c7',
+                                        strokeWidth: 2,
+                                    })}
+                                />
+                            </div>
+                            <Typography variant="body2" color="textSecondary" style={{ marginRight: '15px', padding: '30px' }}>
+                                {`Saved: $${goal.savedAmount}`}
+                            </Typography>
+                            <ListItemSecondaryAction>
+                                <Tooltip title="Delete">
+                                    <IconButton edge="end" aria-label="delete" onClick={() => handleDialogOpen(index)} style={{ marginRight: '10px' }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Edit">
+                                    <IconButton edge="end" aria-label="edit" onClick={() => handleEditGoal(index)}>
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    </motion.div>
                 ))}
             </List>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                startIcon={<AddIcon />}
-                onClick={() => setOpen(true)}
-            >
-                Add Goal
-            </Button>
-            <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">{editIndex !== null ? 'Edit Goal' : 'Add Goal'}</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="title"
-                        label="Title"
-                        type="text"
-                        fullWidth
-                        value={tempGoal.title}
-                        onChange={(e) => setTempGoal({...tempGoal, title: e.target.value})}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="description"
-                        label="Description"
-                        type="text"
-                        fullWidth
-                        value={tempGoal.description}
-                        onChange={(e) => setTempGoal({...tempGoal, description: e.target.value})}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpen(false)} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={editIndex !== null ? editGoal : addGoal} color="primary">
-                        {editIndex !== null ? 'Edit' : 'Add'}
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+                <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                    <Alert elevation={6} variant="filled" onClose={handleCloseSnackbar} severity="success">
+                        Goal {editMode ? 'updated' : 'added'} successfully!
+                    </Alert>
+                </Snackbar>
+                <Dialog open={dialogOpen} onClose={handleDialogClose}>
+                    <DialogTitle>{"Are you sure you want to delete this goal?"}</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleDialogClose} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleDeleteGoal} color="primary" autoFocus>
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </CardContent>
+        </Card>
+    );        
+}
+
+function GoalsComponent() {
+    return (
+        <GoalsProvider>
+            <GoalInputForm />
+        </GoalsProvider>
     );
-};
+}
 
 export default GoalsComponent;

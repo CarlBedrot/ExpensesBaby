@@ -6,18 +6,18 @@ import ExpenseInputComponent from './components/ExpenseInputComponent';
 import BudgetTrackingComponent from './components/BudgetTrackingComponent';
 import TransactionHistoryComponent from './components/TransactionHistoryComponent';
 import HomePage from './components/HomePage';
-import GoalsComponent from './components/GoalsComponent'
+import GoalsComponent from './components/GoalsComponent';
 
 function App() {
   const [budgets, setBudgets] = useState(JSON.parse(localStorage.getItem('budgets')) || []);
   const [expenses, setExpenses] = useState(JSON.parse(localStorage.getItem('expenses')) || []);
-  const [goals, setGoals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
+  const [goals , setGoals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
   
   useEffect(() => {
-    localStorage.setItem('goals', JSON.stringify(goals));
     localStorage.setItem('budgets', JSON.stringify(budgets));
     localStorage.setItem('expenses', JSON.stringify(expenses));
-}, [budgets, expenses]); // Include 'budgets' in the dependency array
+    localStorage.setItem('goals', JSON.stringify(goals));
+}, [budgets, expenses, goals]); // Include 'budgets' in the dependency array
 
 
   return (
