@@ -1,16 +1,36 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import {React, useState} from 'react';
+import { Card, CardContent, CardMedia, Typography, Grid, Button, TextField, Box } from '@mui/material';
 import TransactionHistory from '../images/TransactionHistory.png';
 import Expenses from '../images/Expenses.png';
 import Budget from '../images/Budget.png';
 import BudgetTracker from '../images/BudgetTracker.png';
 import Goals from '../images/Goals.png';
 import Statistics from '../images/statistics.png';
+import emailjs from 'emailjs-com';
+import { IoIosSend } from 'react-icons/io';
+
 
 const HomePage = () => {
+
+
+    const [feedback, setFeedback] = useState('');
+
+    const sendFeedback = (event) => {
+        event.preventDefault();
+
+        emailjs.send('service_cu2pady', 'template_7a7jbur', {message: feedback}, 'TRNBCLUfAkFi3JiBg')
+            .then((response) => {
+               console.log('SUCCESS!', response.status, response.text);
+               setFeedback(''); // Clear the feedback field
+            }, (error) => {
+               console.log('FAILED...', error);
+            });
+    };
+
     return (
         <Grid container spacing={2} style={{ padding: '20px' }}>
             <Grid item xs={12} sm={6}>
+            
                 <Card raised>
                     <CardContent>
                         <Typography variant="h5" gutterBottom>Add Expenses</Typography>
@@ -109,7 +129,26 @@ const HomePage = () => {
                     </CardContent>
                 </Card>
             </Grid>
+
+            <Box component="form" onSubmit={sendFeedback} sx={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', marginBottom: '20px', mt: 3 }}>
+            <TextField
+                            label="Send us your feedback"
+                            multiline
+                            rows={4}
+                            value={feedback}
+                            onChange={e => setFeedback(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                            style={{width: '400px', marginLeft: '20px'}}
+                            sx={{ mb: 2 }}
+                        />
+                        <Button type="submit" variant="contained" color="primary" style={{marginLeft:'20px'}} endIcon={<IoIosSend />}>
+                            Submit
+                        </Button>
+</Box>
         </Grid>
+
+        
     );
 };
 
