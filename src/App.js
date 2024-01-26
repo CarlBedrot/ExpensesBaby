@@ -6,12 +6,15 @@ import ExpenseInputComponent from './components/ExpenseInputComponent';
 import BudgetTrackingComponent from './components/BudgetTrackingComponent';
 import TransactionHistoryComponent from './components/TransactionHistoryComponent';
 import HomePage from './components/HomePage';
+import GoalsComponent from './components/GoalsComponent'
 
 function App() {
   const [budgets, setBudgets] = useState(JSON.parse(localStorage.getItem('budgets')) || []);
   const [expenses, setExpenses] = useState(JSON.parse(localStorage.getItem('expenses')) || []);
+  const [goals, setGoals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
   
   useEffect(() => {
+    localStorage.setItem('goals', JSON.stringify(goals));
     localStorage.setItem('budgets', JSON.stringify(budgets));
     localStorage.setItem('expenses', JSON.stringify(expenses));
 }, [budgets, expenses]); // Include 'budgets' in the dependency array
@@ -28,6 +31,7 @@ function App() {
             <Button component={Link} to="/expenses" color="inherit">Expenses</Button>
             <Button component={Link} to="/tracking" color="inherit">Tracking</Button>
             <Button component={Link} to="/history" color="inherit">History</Button>
+            <Button component={Link} to="/goals" color="inherit">Goals</Button>
           </Toolbar>
         </AppBar>
         <Routes>
@@ -41,6 +45,7 @@ function App() {
                         />} 
                     />          
                     <Route path="/history" element={<TransactionHistoryComponent expenses={expenses} />} />
+                    <Route path="/goals" element={<GoalsComponent />} />
         </Routes>
       </Container>
     </Router>
