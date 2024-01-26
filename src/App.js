@@ -12,12 +12,14 @@ function App() {
   const [budgets, setBudgets] = useState(JSON.parse(localStorage.getItem('budgets')) || []);
   const [expenses, setExpenses] = useState(JSON.parse(localStorage.getItem('expenses')) || []);
   const [goals , setGoals] = useState(JSON.parse(localStorage.getItem('goals')) || []);
+  const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'SEK');
   
   useEffect(() => {
     localStorage.setItem('budgets', JSON.stringify(budgets));
     localStorage.setItem('expenses', JSON.stringify(expenses));
     localStorage.setItem('goals', JSON.stringify(goals));
-}, [budgets, expenses, goals]); // Include 'budgets' in the dependency array
+    localStorage.setItem('currency', JSON.stringify(currency));
+}, [budgets, expenses, goals, currency]); // Include 'budgets' in the dependency array
 
 
   return (
