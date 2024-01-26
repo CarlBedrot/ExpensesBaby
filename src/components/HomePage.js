@@ -5,6 +5,7 @@ import Expenses from '../images/Expenses.png';
 import Budget from '../images/Budget.png';
 import BudgetTracker from '../images/BudgetTracker.png';
 import Goals from '../images/Goals.png';
+import Statistics from '../images/statistics.png';
 
 const HomePage = () => {
     return (
@@ -87,6 +88,23 @@ const HomePage = () => {
                         />
                         <Typography variant="body1">
                             Saving to hedge against the crippling depression of poverty? Set a goal and track your progress!
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <Card raised>
+                    <CardContent>
+                        <Typography variant="h5" gutterBottom>Goals</Typography>
+                        <CardMedia
+                            component="img"
+                            image={Statistics}
+                            alt="Goals Tracker Screenshot"
+                            style={{ height: '200px', objectFit: 'contain' }}
+                            sx={{ transition: 'transform 0.15s ease-in-out', '&:hover': { transform: 'scale(1.25)' } }}
+                        />
+                        <Typography variant="body1">
+                            View stats over how you spend your money!
                         </Typography>
                     </CardContent>
                 </Card>
