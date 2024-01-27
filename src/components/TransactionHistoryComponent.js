@@ -29,6 +29,9 @@ const TransactionHistoryComponent = ({ expenses }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           fullWidth
+          InputProps={{
+            style: { borderRadius: 50 }
+          }}
         />
       </Box>
       {filteredGroups.map((category, index) => (

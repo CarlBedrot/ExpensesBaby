@@ -62,6 +62,11 @@ const ExpenseInputComponent = ({ budgets, expenses, setExpenses}) => {
                             value={expenseCategory}
                             onChange={(e) => setExpenseCategory(e.target.value)}
                             helperText="Please select the category"
+                            variant='outlined'
+                            InputProps={{
+                                style: { borderRadius: 50 }
+                            }}
+                            sx={{ borderRadius: 50 }}
                         >
                             {budgets.map((budget, index) => (
                                 <MenuItem key={index} value={budget.category}>
@@ -74,6 +79,11 @@ const ExpenseInputComponent = ({ budgets, expenses, setExpenses}) => {
                             value={expenseAmount}
                             onChange={(e) => setExpenseAmount(e.target.value)}
                             type="number"
+                            helperText="Please enter the amount"
+                            variant='outlined'
+                            InputProps={{
+                                style: { borderRadius: 50 }
+                            }}
                         />
                         <TextField
                             label="Date"
@@ -83,15 +93,24 @@ const ExpenseInputComponent = ({ budgets, expenses, setExpenses}) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            helperText="Please select the date"
+                            variant='outlined'
+                            InputProps={{
+                                style: { borderRadius: 50 }
+                            }}
                         />
                         <TextField
                             label="Description"
                             value={expenseDescription}
                             onChange={(e) => setExpenseDescription(e.target.value)}
                             helperText="Please enter a description"
+                            variant='outlined'
+                            InputProps={{
+                                style: { borderRadius: 50 }
+                            }}
                         />
                     </Box>
-                    <Button variant="outlined" color="primary" type="submit">
+                    <Button variant="outlined" color="primary" type="submit" InputProps={{style:{borderRadius:50}}} >
                         Add Expense
                     </Button>
                 </Box>

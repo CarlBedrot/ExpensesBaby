@@ -83,7 +83,8 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value)}
                         style={{ width: '100px' }}
-                        displayEmpty // This allows the placeholder item to be displayed when no value is selected
+                        displayEmpty
+                        sx={{ borderRadius: 50 }}
                     >
                         <MenuItem value="Currency" disabled>
                             Select Currency
@@ -108,7 +109,14 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
                             }}
                             error={!!categoryError}
                             helperText={categoryError}
+                            sx={{ borderRadius: 50 }}
+                            variant="outlined"
+                            InputProps={{
+                                style: { borderRadius: 50 }
+                            }}
+                             // Add this line
                         />
+
                         <TextField
                             label="Amount"
                             value={amount}
@@ -119,6 +127,10 @@ const BudgetComponent = ({ budgets, setBudgets }) => {
                             type="number"
                             error={!!amountError}
                             helperText={amountError}
+                            variant="outlined"
+                            InputProps={{
+                                style: { borderRadius: 50 }
+                            }}
                         />
                     </Box>
                     <Button variant="outlined" color="primary" type="submit">
